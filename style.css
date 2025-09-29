@@ -1,0 +1,98 @@
+
+        * {margin: 0; padding: 0; box-sizing: border-box;}
+        body {font-family: Arial, sans-serif; background-color: #f8f8f8; line-height: 1.4;}
+        .container {max-width: 1200px; margin: 0 auto; padding: 20px;}
+        .header {text-align: center; margin-bottom: 30px;}
+        .header h1 {font-size: 2.5rem; color: #333; margin-bottom: 10px;}
+        .header h1 .ampersand {color: #e74c3c;}
+
+        /* Приховані інпути */
+        input[type="radio"] {display: none;}
+
+        /* Фільтри */
+        .filters {
+            background: white; padding: 20px; border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 30px;
+        }
+
+        .calorie-filter, .category-filter {
+            margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px; border: 2px solid #ddd; background: white;
+            border-radius: 25px; cursor: pointer; transition: all 0.3s ease; font-size: 14px;
+        }
+        .filter-btn:hover {border-color: #2c3e50; background: #f8f9fa;}
+
+        /* Галерея */
+        .gallery {display: grid; gap: 20px;}
+        .recipe-card {
+            background: white; border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            display: flex; flex-direction: column; opacity: 1;
+        }
+        .recipe-card.dimmed {opacity: 0.3; transform: scale(0.95);}
+        .recipe-card:hover {transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15);}
+        .recipe-card.dimmed:hover {transform: scale(0.95) translateY(-2px);}
+        .recipe-image {width: 100%; height: 200px; object-fit: cover; align-self: flex-start;}
+        .recipe-content {padding: 20px; flex-grow: 1; display: flex; flex-direction: column;}
+        .recipe-type {font-size: 12px; color: #666; text-transform: uppercase; margin-bottom: 5px;}
+        .recipe-title {font-size: 18px; font-weight: bold; color: #333; margin-bottom: 15px; flex-grow: 1;}
+        .recipe-divider {height: 1px; background: #eee; margin: 15px 0;}
+        .recipe-calories {font-size: 14px; color: #666; margin-top: auto;}
+
+        /* Футер */
+        .footer {
+            margin-top: 50px; padding: 30px 0; border-top: 1px solid #eee;
+            display: flex; justify-content: space-between; align-items: center; color: #666;
+        }
+        .footer a {color: #2c3e50; text-decoration: none;}
+
+        /* --- Логіка фільтрації --- */
+        /* Категорії */
+        #tort:checked ~ .gallery .recipe-card:not(.tort),
+        #tistechko:checked ~ .gallery .recipe-card:not(.tistechko),
+        #syrnyk:checked ~ .gallery .recipe-card:not(.syrnyk),
+        #rulet:checked ~ .gallery .recipe-card:not(.rulet),
+        #pyrig:checked ~ .gallery .recipe-card:not(.pyrig) {
+            opacity: 0.3; transform: scale(0.95);
+        }
+
+        /* Калорійність */
+        #cal-all:checked ~ .gallery .recipe-card {opacity: 1; transform: none;}
+        #cal-300:checked ~ .gallery .recipe-card:not(.cal-lt300) {opacity: 0.3; transform: scale(0.95);}
+        #cal-400:checked ~ .gallery .recipe-card:not(.cal-300-400) {opacity: 0.3; transform: scale(0.95);}
+        #cal-500:checked ~ .gallery .recipe-card:not(.cal-401-500) {opacity: 0.3; transform: scale(0.95);}
+        #cal-650:checked ~ .gallery .recipe-card:not(.cal-501-650) {opacity: 0.3; transform: scale(0.95);}
+
+        /* Активні кнопки */
+        #all:checked ~ .filters label[for="all"],
+        #tort:checked ~ .filters label[for="tort"],
+        #tistechko:checked ~ .filters label[for="tistechko"],
+        #syrnyk:checked ~ .filters label[for="syrnyk"],
+        #rulet:checked ~ .filters label[for="rulet"],
+        #pyrig:checked ~ .filters label[for="pyrig"],
+        #cal-all:checked ~ .filters label[for="cal-all"],
+        #cal-300:checked ~ .filters label[for="cal-300"],
+        #cal-400:checked ~ .filters label[for="cal-400"],
+        #cal-500:checked ~ .filters label[for="cal-500"],
+        #cal-650:checked ~ .filters label[for="cal-650"] {
+            background: #2c3e50; color: white; border-color: #2c3e50;
+        }
+
+        /* Мобільні */
+        @media (max-width: 730px) {
+            .gallery {grid-template-columns: 1fr; gap: 15px;}
+            .recipe-image {height: 150px;}
+            .recipe-title {font-size: 16px;}
+            .footer {flex-direction: column; gap: 10px; text-align: center;}
+        }
+        @media (min-width: 730px) and (max-width: 1200px) {
+            .gallery {grid-template-columns: repeat(2, 1fr); gap: 20px;}
+            .recipe-image {height: 180px;}
+        }
+        @media (min-width: 1200px) {
+            .gallery {grid-template-columns: repeat(3, 1fr); gap: 25px;}
+        }

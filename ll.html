@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Play Video with Sound</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        video {
+            width: 100%;
+            height: auto;
+            max-width: 800px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<video id="video" autoplay loop playsinline>
+    <source src="./IMG_0714.MP4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<button id="playButton">▶️ Включить звук</button>
+
+<script>
+    const video = document.getElementById('video');
+    const playButton = document.getElementById('playButton');
+
+    // Попробовать воспроизвести со звуком при первом взаимодействии
+    playButton.addEventListener('click', () => {
+        video.muted = false;
+        video.play().then(() => {
+            console.log('Видео воспроизводится со звуком');
+            playButton.style.display = 'none'; // Скрываем кнопку после запуска
+        }).catch(error => {
+            console.error('Ошибка при запуске видео:', error);
+        });
+    });
+</script>
+
+</body>
+</html>
